@@ -557,6 +557,59 @@
     }, { threshold: 0.35 }).observe(desk);
   })();
 
+  /* ---------- Clientes: faixa de logótipos em ciclo contínuo ----------
+     No HTML mantém-se uma só lista. Aqui duplica-se o suficiente para cobrir a
+     largura do ecrã e desloca-se exatamente uma lista, o que torna o ciclo sem corte. */
+  (() => {
+    const section = $('#clientes');
+    const marquee = $('#clientsMarquee');
+    const track = $('#clientsTrack');
+    const pause = $('#clientsPause');
+    if (!section || !marquee || !track) return;
+    const base = $$('.clients__item', track);
+    if (!base.length) return;
+    const SPEED = 42;   // píxeis por segundo
+
+    const build = () => {
+      $$('[data-clone]', track).forEach((el) => el.remove());
+      if (reduceMotion) return;
+      const one = track.getBoundingClientRect().width;
+      if (!one) return;
+      const extra = Math.max(1, Math.ceil(marquee.clientWidth / one));
+      for (let k = 0; k < extra; k++) {
+        base.forEach((el) => {
+          const copy = el.cloneNode(true);
+          copy.setAttribute('aria-hidden', 'true');
+          copy.setAttribute('data-clone', '');
+          track.append(copy);
+        });
+      }
+      track.style.setProperty('--clients-shift', `${one.toFixed(2)}px`);
+      track.style.setProperty('--clients-dur', `${(one / SPEED).toFixed(2)}s`);
+    };
+
+    if (pause) {
+      pause.hidden = false;
+      pause.addEventListener('click', () => {
+        const paused = section.classList.toggle('is-paused');
+        pause.setAttribute('aria-pressed', String(paused));
+        pause.textContent = paused ? 'Retomar' : 'Pausar';
+      });
+    }
+
+    build();
+    window.addEventListener('load', build);
+    motion.addEventListener?.('change', build);
+    if ('ResizeObserver' in window) {
+      let w = marquee.clientWidth;
+      new ResizeObserver(() => {
+        if (Math.abs(marquee.clientWidth - w) < 2) return;
+        w = marquee.clientWidth;
+        build();
+      }).observe(marquee);
+    }
+  })();
+
   /* ---------- Serviços: mostrador fixo em ecrãs largos ---------- */
   (() => {
     const section = $('#servicos');

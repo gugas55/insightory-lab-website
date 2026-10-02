@@ -538,6 +538,29 @@
     </div>
   </section>
 
+  <!-- ============ CLIENTES ============
+       Os espaços "Logótipo" são provisórios: não existem logótipos de clientes no repositório.
+       Para os trocar, ponha os ficheiros em assets/clientes/ (SVG, ou PNG com fundo transparente)
+       e substitua cada <li> por:
+       <li class="clients__item"><img src="assets/clientes/nome.svg" alt="Nome do cliente" width="144" height="36" loading="lazy"></li>
+       O movimento duplica a lista sozinho, por isso basta manter uma só. -->
+  <section class="clients" id="clientes" aria-labelledby="clientsTitle">
+    <div class="wrap clients__head">
+      <h2 class="clients__title" id="clientsTitle">Empresas que confiam em nós.</h2>
+      <button class="clients__pause" id="clientsPause" type="button" aria-pressed="false" hidden>Pausar</button>
+    </div>
+    <div class="clients__marquee" id="clientsMarquee">
+      <ul class="clients__track" id="clientsTrack">
+        <li class="clients__item"><span class="clients__ph">Logótipo</span></li>
+        <li class="clients__item"><span class="clients__ph">Logótipo</span></li>
+        <li class="clients__item"><span class="clients__ph">Logótipo</span></li>
+        <li class="clients__item"><span class="clients__ph">Logótipo</span></li>
+        <li class="clients__item"><span class="clients__ph">Logótipo</span></li>
+        <li class="clients__item"><span class="clients__ph">Logótipo</span></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ============ SERVIÇOS ============ -->
   <section class="services" id="servicos">
     <div class="wrap services__intro">

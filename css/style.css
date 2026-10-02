@@ -875,6 +875,106 @@ table{ border-collapse: collapse; }
 .plate__desc{ max-width: 40ch; margin-top: .625rem; color: var(--muted); text-wrap: pretty; }
 .plate .tags{ margin-top: 1.125rem; }
 
+/* ---------- Clientes: faixa de logótipos em ciclo contínuo ---------- */
+.clients{
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-block: 1px solid var(--line);
+}
+.clients__head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+.clients__title{
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.clients__pause{
+  min-height: 2.75rem;
+  padding-inline: .25rem;
+  font-size: .8125rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .22em;
+  transition: color .3s var(--ease-glass);
+}
+@media (hover: hover){ .clients__pause:hover{ color: var(--ink); } }
+
+.clients__marquee{
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+/* sem JavaScript, ou com movimento reduzido, a lista fica parada e quebra em linhas */
+.clients__track{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1.5rem;
+}
+.clients__item{
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+}
+.clients__item img{
+  width: auto;
+  height: 2.25rem;
+  max-width: 9.5rem;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: .6;
+  transition: opacity .35s var(--ease-glass);
+}
+@media (hover: hover){ .clients__item:hover img{ opacity: 1; } }
+
+/* espaço provisório, até haver logótipos reais */
+.clients__ph{
+  display: grid;
+  place-items: center;
+  width: 9rem;
+  height: 3rem;
+  border: 1px dashed var(--line-2);
+  border-radius: .75rem;
+  font-size: .75rem;
+  color: var(--faint);
+  letter-spacing: 0;
+}
+.clients__item:nth-child(3n+2) .clients__ph{ width: 7.5rem; }
+.clients__item:nth-child(3n) .clients__ph{ width: 10.5rem; }
+
+@media (prefers-reduced-motion: no-preference){
+  .js .clients__track{
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: max-content;
+    row-gap: 0;
+    animation: clients-run var(--clients-dur, 40s) linear infinite;
+  }
+  .js .clients.is-paused .clients__track{ animation-play-state: paused; }
+  @media (hover: hover){
+    .js .clients__marquee:hover .clients__track{ animation-play-state: paused; }
+  }
+}
+@keyframes clients-run{
+  to{ transform: translate3d(calc(var(--clients-shift, 50%) * -1), 0, 0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .clients__track > [aria-hidden="true"]{ display: none; }
+  .clients__pause{ display: none; }
+  .clients__marquee{ -webkit-mask-image: none; mask-image: none; }
+}
+
 /* ---------- Serviços ---------- */
 .services{ padding-block: var(--section); }
 .services__intro{
