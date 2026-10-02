@@ -929,29 +929,13 @@ table{ border-collapse: collapse; }
 }
 .clients__item img{
   width: auto;
-  height: 2.25rem;
-  max-width: 9.5rem;
+  height: 2.75rem;
+  max-width: 11rem;
   object-fit: contain;
-  filter: grayscale(1);
-  opacity: .6;
+  opacity: .55;
   transition: opacity .35s var(--ease-glass);
 }
 @media (hover: hover){ .clients__item:hover img{ opacity: 1; } }
-
-/* espaço provisório, até haver logótipos reais */
-.clients__ph{
-  display: grid;
-  place-items: center;
-  width: 9rem;
-  height: 3rem;
-  border: 1px dashed var(--line-2);
-  border-radius: .75rem;
-  font-size: .75rem;
-  color: var(--faint);
-  letter-spacing: 0;
-}
-.clients__item:nth-child(3n+2) .clients__ph{ width: 7.5rem; }
-.clients__item:nth-child(3n) .clients__ph{ width: 10.5rem; }
 
 @media (prefers-reduced-motion: no-preference){
   .js .clients__track{
