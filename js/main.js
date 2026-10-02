@@ -292,7 +292,7 @@
     const lensEl = $('#lens');
     if (!field || !strip || !lensEl) return;
 
-    const names = ['Identidade e Marca', 'Websites e E-commerce', 'Plataformas e Dashboards', 'Automação de Processos'];
+    const names = ['Identidade e marca', 'Websites e e-commerce', 'Plataformas e dashboards', 'Automação de processos'];
     const tour = [2, 3, 2, 1, 0, 1];
     const lift = [-0.05, 0.04, -0.02, 0.05];
     const L = createLens(lensEl, 1.06);
@@ -781,7 +781,7 @@
       }
       const [name, email, message] = fields.map((f) => f.input.value.trim());
       const to = form.getAttribute('action').replace(/^mailto:/, '');
-      const subject = encodeURIComponent('Novo projeto — ' + name);
+      const subject = encodeURIComponent('Novo projeto: ' + name);
       const body = encodeURIComponent(`${message}\n\n${name}\n${email}`);
       window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
       // Não sabemos se há uma aplicação de email configurada: damos sempre o endereço
