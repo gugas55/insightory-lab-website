@@ -16,9 +16,8 @@ O tipo de letra é a General Sans (pesos 400, 500 e 600), carregada da Fontshare
 
 ## Antes de publicar
 
-Substitui os seguintes placeholders em `index.html` (procura por `+351 000 000 000` e `href="#"`):
+Substitui os seguintes placeholders em `index.html` (procura por `href="#"`):
 
-- Telefone
 - Links de LinkedIn / Instagram
 - Links de Política de Privacidade e Termos & Condições, no rodapé
 
