@@ -2,3 +2,7 @@
 node_modules/
 .vercel/
 .netlify/
+
+# Supabase CLI (ficheiros locais)
+supabase/.temp/
+supabase/.branches/

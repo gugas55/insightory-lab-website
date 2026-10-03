@@ -36,6 +36,7 @@
   <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.4v.1"/></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5.5 4.5h13A2.5 2.5 0 0 1 21 7v8a2.5 2.5 0 0 1-2.5 2.5H12.6l-4.2 3c-.55.4-1.3 0-1.3-.65V17.5H5.5A2.5 2.5 0 0 1 3 15V7a2.5 2.5 0 0 1 2.5-2.5Z"/><circle cx="8.5" cy="11" r="1.05" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="1.05" fill="currentColor" stroke="none"/><circle cx="15.5" cy="11" r="1.05" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
 
   <!-- Áreas organizadas: vistas através da lente e na secção de serviços -->
   <symbol id="z-marca" viewBox="0 0 320 300">
@@ -806,12 +807,12 @@
 
 <!-- ============ CHAT ============
      Botão de vidro fixo no canto inferior direito. O painel traz, para já, um contacto por email;
-     para ligar um agente, monte o seu widget dentro de #chatMount (ver README, "Ligar um agente de chat"). -->
+     o assistente de IA monta-se sozinho dentro de #chatMount quando existe data-endpoint (ver README, "Chatbot com IA"). -->
 <div class="chat" id="chat">
   <section class="chat__panel" id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" tabindex="-1" hidden>
     <span class="chat__panel-glass" aria-hidden="true"></span>
     <h2 class="chat__title" id="chatTitle">Fale connosco</h2>
-    <div class="chat__mount" id="chatMount"></div>
+    <div class="chat__mount" id="chatMount" data-endpoint="https://lbqlekwqylwaasleedgj.supabase.co/functions/v1/chat-insightory"></div>
     <div class="chat__fallback">
       <p>Escreva-nos e respondemos pessoalmente a todas as mensagens.</p>
       <div class="chat__actions">

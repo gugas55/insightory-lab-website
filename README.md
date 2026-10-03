@@ -23,15 +23,30 @@ Substitui os seguintes placeholders em `index.html` (procura por `href="#"`):
 
 O email de contacto é `geral@insightorylab.com`. Aparece no hero (texto e botão de copiar), no menu móvel, na secção de contacto e na `action` do formulário; se mudar, procura por `geral@insightorylab.com` em `index.html`.
 
-## Ligar um agente de chat
+## Chatbot com IA
 
-O botão de vidro no canto inferior direito abre um painel (`#chatPanel`). Para já, o painel mostra um contacto por email. Para ligar um agente:
+O botão de vidro no canto inferior direito abre uma conversa com um assistente. Ele só responde com o que está em `supabase/functions/chat-insightory/knowledge.ts` (o conteúdo do site mais o que você acrescentar). Fora disso, recusa e encaminha para `geral@insightorylab.com`.
 
-1. Monte o widget do agente dentro de `<div id="chatMount">` (em JavaScript: `window.InsightoryChat.mount`). Se o serviço injetar o seu próprio botão flutuante, esconda-o e abra o chat pelo nosso.
-2. Quando o agente estiver a funcionar, chame `window.InsightoryChat.ready()`. O contacto por email deixa de aparecer.
-3. Para reagir à abertura e ao fecho, escute os eventos `insightory:chat-open` e `insightory:chat-close` no `document`. Também há `InsightoryChat.open()`, `.close()` e `.toggle()`.
+Como funciona:
 
-O estilo está em `css/style.css` (bloco "Chat") e o comportamento em `js/main.js` (bloco "Chat").
+- O site (`js/main.js`, bloco "Chat: assistente de IA") envia o histórico recente para uma função do Supabase, indicada em `data-endpoint` no `#chatMount` do `index.html`. A chave da IA fica na função e nunca no site.
+- A função vive no projeto Supabase do Website HS (`lbqlekwqylwaasleedgj`), onde já estão os segredos da OpenAI. Chama-se `chat-insightory` e é independente da função `chat` do Hotel Solutions.
+- Não guarda conversas. O histórico fica só no separador do visitante (`sessionStorage`).
+- Limite de 10 pedidos por minuto e 60 por hora por visitante. O contador está na tabela `chat_rate_limits` (migração `20261003150000` no repositório do Website HS) e guarda só um código cifrado do IP, durante 1 a 2 horas.
+- Só aceita pedidos vindos de `insightorylab.com`, `www.insightorylab.com`, `gugas55.github.io` e `localhost:8000` (variável `ALLOWED_ORIGINS`).
+
+Para mudar o que o assistente sabe:
+
+1. Edite o texto em `supabase/functions/chat-insightory/knowledge.ts`. A secção "INFORMAÇÃO ADICIONAL" é para o que quiser acrescentar além do site. Quando o texto do site mudar, atualize também este ficheiro.
+2. Publique a função (o `supabase` CLI tem de ter sessão iniciada):
+
+```bash
+supabase functions deploy chat-insightory --project-ref lbqlekwqylwaasleedgj --no-verify-jwt --use-api
+```
+
+Para a privacidade: as mensagens do visitante são enviadas à OpenAI para gerar a resposta. O painel avisa que são respostas de IA e pede para não partilhar dados pessoais; a política de privacidade do site deve mencionar isto e o contador por IP.
+
+Ligações com o resto da página: `window.InsightoryChat` expõe `open()`, `close()`, `toggle()`, `mount` e `ready()`, e o `document` emite `insightory:chat-open` e `insightory:chat-close`. O estilo está em `css/style.css` (blocos "Chat").
 
 ## Trocar as ilustrações do portefólio por projetos reais
 

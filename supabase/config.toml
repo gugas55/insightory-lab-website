@@ -1,0 +1,9 @@
+# Só serve para publicar a função do chat. O projeto Supabase é o do Website HS
+# (ref lbqlekwqylwaasleedgj), onde já estão os segredos da IA.
+project_id = "insightory-lab-website"
+
+# O site (GitHub Pages) chama a função diretamente, sem sessão de utilizador.
+# O abuso é limitado dentro da função: origens permitidas, limite por IP (contador na
+# tabela chat_rate_limits), tamanho máximo das mensagens e limite de tokens na resposta.
+[functions.chat-insightory]
+verify_jwt = false

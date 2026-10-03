@@ -852,6 +852,153 @@
     tone();
   })();
 
+  /* ---------- Chat: assistente de IA ----------
+     Monta a conversa dentro de #chatMount e fala com a função do Supabase indicada em
+     data-endpoint. A chave da IA fica na função, nunca no site. As respostas entram sempre
+     como texto (textContent), nunca como HTML. O histórico vive em sessionStorage e some
+     quando o separador fecha. Sem data-endpoint, o painel continua só com o contacto. */
+  (() => {
+    const api = window.InsightoryChat;
+    const mount = api && api.mount;
+    const endpoint = mount && mount.dataset.endpoint;
+    if (!mount || !endpoint) return;
+
+    const EMAIL = 'geral@insightorylab.com';
+    const KEY = 'insightory-chat';
+    const MAX_SENT = 10;
+    const MAX_KEPT = 20;
+    const intro = 'Pergunte-me sobre os serviços, o processo de trabalho ou os modelos de colaboração da Insightory.Lab.';
+    const ideas = ['Que serviços oferecem?', 'Como funciona o processo?', 'Quero pedir um orçamento'];
+
+    const make = (tag, cls, text) => {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text) n.textContent = text;
+      return n;
+    };
+    const valid = (t) => t && (t.role === 'user' || t.role === 'assistant') && typeof t.content === 'string';
+
+    let turns = [];
+    try { turns = JSON.parse(sessionStorage.getItem(KEY) || '[]').filter(valid).slice(-MAX_KEPT); } catch { turns = []; }
+    const save = () => { try { sessionStorage.setItem(KEY, JSON.stringify(turns.slice(-MAX_KEPT))); } catch { /* sem armazenamento: segue sem histórico */ } };
+
+    const wrap = make('div', 'cb');
+    const log = make('ol', 'cb__log');
+    log.setAttribute('role', 'log');
+    log.setAttribute('aria-live', 'polite');
+    log.setAttribute('aria-label', 'Conversa com o assistente');
+    const ideaBox = make('div', 'cb__ideas');
+    const cta = make('div', 'cb__cta');
+    cta.hidden = true;
+    const form = make('form', 'cb__form');
+    form.setAttribute('autocomplete', 'off');
+    const label = make('label', 'sr-only', 'A sua pergunta');
+    label.htmlFor = 'cbInput';
+    const input = make('input', 'cb__input');
+    input.id = 'cbInput';
+    input.type = 'text';
+    input.maxLength = 500;
+    input.placeholder = 'Escreva a sua pergunta';
+    input.enterKeyHint = 'send';
+    const send = make('button', 'cb__send');
+    send.type = 'submit';
+    send.setAttribute('aria-label', 'Enviar pergunta');
+    send.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-send"/></svg>';
+    const note = make('p', 'cb__note', 'Respostas geradas por IA, só sobre a Insightory.Lab. Não partilhe dados pessoais no chat.');
+    form.append(label, input, send);
+    wrap.append(log, ideaBox, cta, form, note);
+
+    const toEnd = () => { log.scrollTop = log.scrollHeight; };
+    const add = (role, text, extra) => {
+      const li = make('li', `cb__msg cb__msg--${role}${extra ? ' cb__msg--' + extra : ''}`, text);
+      log.append(li);
+      toEnd();
+      return li;
+    };
+    const typing = () => {
+      const li = make('li', 'cb__msg cb__msg--assistant cb__typing');
+      li.append(make('span', 'sr-only', 'A escrever'), make('i'), make('i'), make('i'));
+      log.append(li);
+      toEnd();
+      return li;
+    };
+    const showActions = () => {
+      cta.replaceChildren();
+      const open = make('a', 'btn btn--sm', 'Abrir formulário');
+      open.href = '#contacto';
+      const mail = make('a', 'chat__link', 'Enviar email');
+      mail.href = `mailto:${EMAIL}`;
+      cta.append(open, mail);
+      cta.hidden = false;
+      toEnd();
+    };
+
+    let busy = false;
+    const setBusy = (on) => { busy = on; input.disabled = on; send.disabled = on; };
+
+    const ask = async (raw) => {
+      const text = raw.trim();
+      if (!text || busy) return;
+      setBusy(true);
+      ideaBox.hidden = true;
+      cta.hidden = true;
+      add('user', text);
+      turns.push({ role: 'user', content: text });
+      save();
+      input.value = '';
+      const wait = typing();
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 30000);
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: turns.slice(-MAX_SENT), lang: 'pt' }),
+          signal: ctrl.signal,
+        });
+        if (res.status === 429) throw new Error('rate');
+        if (!res.ok) throw new Error('http');
+        const data = await res.json();
+        const reply = typeof data.reply === 'string' ? data.reply.trim() : '';
+        if (!reply) throw new Error('empty');
+        wait.remove();
+        add('assistant', reply);
+        turns.push({ role: 'assistant', content: reply });
+        save();
+        if (data.openForm === true) showActions();
+      } catch (e) {
+        wait.remove();
+        add('assistant', e.message === 'rate'
+          ? `Enviou muitas mensagens seguidas. Tente daqui a um minuto ou escreva para ${EMAIL}.`
+          : `Não consegui responder agora. Escreva-nos para ${EMAIL} ou use o formulário.`, 'error');
+        showActions();
+      } finally {
+        clearTimeout(timer);
+        setBusy(false);
+        if (canHover) input.focus({ preventScroll: true });
+      }
+    };
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); ask(input.value); });
+    ideas.forEach((q) => {
+      const b = make('button', 'cb__idea', q);
+      b.type = 'button';
+      b.addEventListener('click', () => ask(q));
+      ideaBox.append(b);
+    });
+
+    add('assistant', intro);
+    turns.forEach((t) => add(t.role, t.content));
+    if (turns.length) ideaBox.hidden = true;
+
+    mount.append(wrap);
+    api.ready();
+    document.addEventListener('insightory:chat-open', () => {
+      toEnd();
+      if (canHover) setTimeout(() => input.focus({ preventScroll: true }), 60);
+    });
+  })();
+
   /* ---------- Pormenores ---------- */
   // O brilho dos botões acompanha o ponteiro
   if (canHover) {
