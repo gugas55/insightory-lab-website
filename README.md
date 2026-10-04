@@ -48,6 +48,21 @@ Para a privacidade: as mensagens do visitante são enviadas à OpenAI para gerar
 
 Ligações com o resto da página: `window.InsightoryChat` expõe `open()`, `close()`, `toggle()`, `mount` e `ready()`, e o `document` emite `insightory:chat-open` e `insightory:chat-close`. O estilo está em `css/style.css` (blocos "Chat").
 
+## Formulário de contacto
+
+O formulário da secção Contacto envia um email para `geral@insightorylab.com` através da função `send-contact-insightory`, no mesmo projeto Supabase do chatbot (envio por SendGrid, com o email do visitante em "Responder a"). O endereço da função está em `data-endpoint` no `<form id="contactForm">`.
+
+- Não guarda mensagens: o email é o registo. Também não envia confirmação ao visitante, para ninguém conseguir usar o formulário para escrever a terceiros.
+- Proteções: só aceita pedidos do site, tem um campo-armadilha para robôs (`website`, escondido) e limita a 2 envios por minuto e 6 por hora por visitante.
+- Se o envio falhar, o visitante vê o email da equipa. Sem `data-endpoint`, o formulário volta a abrir a aplicação de email do visitante.
+- O remetente é o `SENDGRID_FROM` do projeto (por defeito `no-reply@insightorylab.com`), que tem de estar verificado no SendGrid. Para mudar o destinatário, defina o segredo `CONTACT_TO`.
+
+Para republicar a função:
+
+```bash
+supabase functions deploy send-contact-insightory --project-ref lbqlekwqylwaasleedgj --no-verify-jwt --use-api
+```
+
 ## Trocar as ilustrações do portefólio por projetos reais
 
 As quatro pranchas do portefólio têm ilustrações marcadas como "Exemplo ilustrativo". Para cada projeto real, em `index.html`, substitui o `<svg class="plate__art">…</svg>` por

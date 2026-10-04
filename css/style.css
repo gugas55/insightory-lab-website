@@ -1306,6 +1306,8 @@ table{ border-collapse: collapse; }
 
 .form{ display: grid; gap: 1.125rem; align-content: start; }
 .form__row{ display: grid; gap: .5rem; }
+/* armadilha para robôs: fora do ecrã, nunca visível nem focável por pessoas */
+.form__trap{ position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form__row label{ font-size: .875rem; font-weight: 500; }
 .form__row input, .form__row textarea{
   width: 100%;

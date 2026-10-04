@@ -771,7 +771,11 @@
       f.input.addEventListener('blur', () => { if (f.input.value) check(f); });
       f.input.addEventListener('input', () => { if (f.input.getAttribute('aria-invalid') === 'true') check(f); });
     });
-    form.addEventListener('submit', (e) => {
+    const endpoint = form.dataset.endpoint;
+    const submitBtn = $('button[type="submit"]', form);
+    const to = form.getAttribute('action').replace(/^mailto:/, '');
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const invalid = fields.filter((f) => !check(f));
       if (invalid.length) {
@@ -780,12 +784,42 @@
         return;
       }
       const [name, email, message] = fields.map((f) => f.input.value.trim());
-      const to = form.getAttribute('action').replace(/^mailto:/, '');
-      const subject = encodeURIComponent('Novo projeto: ' + name);
-      const body = encodeURIComponent(`${message}\n\n${name}\n${email}`);
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-      // Não sabemos se há uma aplicação de email configurada: damos sempre o endereço
-      status.textContent = `A abrir o seu email com a mensagem pronta. Se nada abrir, escreva-nos para ${to}.`;
+
+      // Sem função ligada, abre o email do visitante com a mensagem pronta
+      if (!endpoint) {
+        const subject = encodeURIComponent('Novo projeto: ' + name);
+        const body = encodeURIComponent(`${message}\n\n${name}\n${email}`);
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+        status.textContent = `A abrir o seu email com a mensagem pronta. Se nada abrir, escreva-nos para ${to}.`;
+        return;
+      }
+
+      submitBtn.disabled = true;
+      status.textContent = 'A enviar…';
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 20000);
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message, website: ($('#website', form) || {}).value || '' }),
+          signal: ctrl.signal,
+        });
+        if (res.status === 429) {
+          status.textContent = `Enviou várias mensagens seguidas. Tente daqui a pouco ou escreva para ${to}.`;
+          return;
+        }
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.ok !== true) throw new Error('send');
+        status.textContent = 'Mensagem enviada. Respondemos pessoalmente.';
+        form.reset();
+        fields.forEach(({ input, error }) => { input.removeAttribute('aria-invalid'); error.hidden = true; });
+      } catch {
+        status.textContent = `Não foi possível enviar agora. Escreva-nos para ${to}.`;
+      } finally {
+        clearTimeout(timer);
+        submitBtn.disabled = false;
+      }
     });
   })();
 

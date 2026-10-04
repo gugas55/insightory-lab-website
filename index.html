@@ -742,7 +742,11 @@
           </dl>
         </div>
 
-        <form class="form" id="contactForm" action="mailto:geral@insightorylab.com" method="post" enctype="text/plain">
+        <form class="form" id="contactForm" action="mailto:geral@insightorylab.com" method="post" enctype="text/plain" data-endpoint="https://lbqlekwqylwaasleedgj.supabase.co/functions/v1/send-contact-insightory">
+          <div class="form__trap" aria-hidden="true">
+            <label for="website">Não preencha este campo</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
           <div class="form__row">
             <label for="name">Nome</label>
             <input id="name" name="Nome" type="text" autocomplete="name" placeholder="O seu nome" required aria-describedby="name-err">

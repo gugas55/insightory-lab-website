@@ -7,3 +7,7 @@ project_id = "insightory-lab-website"
 # tabela chat_rate_limits), tamanho máximo das mensagens e limite de tokens na resposta.
 [functions.chat-insightory]
 verify_jwt = false
+
+# Formulário de contacto: envia um email para geral@insightorylab.com (SendGrid).
+[functions.send-contact-insightory]
+verify_jwt = false
