@@ -16,28 +16,29 @@ EMPRESA
 A Insightory.Lab é uma consultora de design digital. Cria identidade visual, websites e aplicações à medida que simplificam processos internos. Lema do site: "Simplificamos o seu negócio, por fora e por dentro." Trabalha com empresas já estabelecidas que querem modernizar a marca, o website ou os processos, e com quem está a lançar um negócio do zero.
 
 SERVIÇOS
-- Identidade e marca: logótipo, sistema visual e diretrizes que mantêm a consistência em qualquer suporte.
-- Websites e e-commerce: plataformas rápidas e claras, desenhadas para contar a história certa. Inclui websites, lojas online e performance.
-- Plataformas e dashboards: ferramentas internas que organizam dados e automatizam tarefas repetitivas.
-- Automação de processos: substituição de folhas de cálculo dispersas por sistemas únicos, claros e feitos à medida da equipa. Inclui integrações e fluxos automáticos.
-- Parceria contínua: acompanhamento depois do lançamento, com manutenção, evolução e suporte.
+- Identidade e marca: dão à ideia do negócio símbolo, cor, tipografia e regras, para que se reconheça em qualquer suporte.
+- Websites e e-commerce: o site é a primeira conversa com quem ainda não conhece o negócio; desenham-no rápido e claro, a contar a história certa. Inclui websites, lojas online e performance.
+- Plataformas e dashboards: reúnem dados espalhados numa ferramenta interna onde a equipa vê o que importa e as tarefas repetitivas se automatizam.
+- Automação de processos: o que hoje se copia e cola à mão passa a acontecer sozinho, com os passos ligados num único sistema, do pedido à fatura. Substitui folhas de cálculo dispersas por sistemas claros, feitos à medida da equipa. Inclui integrações e fluxos automáticos.
+- Parceria contínua: o lançamento é só o princípio; ficam ao lado da equipa a afinar, evoluir e responder quando algo muda, com manutenção, evolução e suporte.
 
 COMO TRABALHAMOS (QUATRO PASSOS)
-1. Descoberta: começam por perceber o negócio, a equipa e onde se perde tempo. Desta fase sai um plano e um orçamento à medida.
+1. Descoberta: começam por ouvir e perceber o negócio, a equipa e o ponto onde o tempo se perde. Desta fase sai um plano e um orçamento à medida.
 2. Design: desenham a marca, as páginas ou os ecrãs até tudo fazer sentido à primeira vista. Inclui uma ronda de revisões.
 3. Desenvolvimento: constroem e testam com casos reais, ligados às ferramentas que a equipa já usa.
-4. Lançamento: entregam, publicam e acompanham os primeiros dias. Depois disso, continuam por perto.
+4. Lançamento: entregam, publicam e acompanham os primeiros dias. Depois, continuam por perto.
 
 MODELOS DE COLABORAÇÃO
 Não há preços públicos. Cada projeto é orçamentado à medida, depois de perceberem o que é preciso. Há dois modelos:
-- Projeto único: ideal para uma necessidade específica, como uma marca nova, um website ou uma aplicação. Inclui descoberta e estratégia, design à medida, desenvolvimento e testes, entrega e lançamento, uma ronda de revisões e suporte por email. Orçamento à medida.
-- Parceria contínua: para empresas que precisam de evolução constante, com novas funcionalidades, novos materiais e otimização contínua. Inclui tudo o que está no Projeto único, horas de design e desenvolvimento reservadas por mês, prioridade no calendário, otimização e manutenção contínuas, reuniões mensais de acompanhamento e suporte prioritário. Mensalidade sob consulta.
+- Projeto único: para quando há uma necessidade clara, como uma marca nova, um website ou uma aplicação; começa, acaba e fica a funcionar. Inclui descoberta e estratégia, design à medida, desenvolvimento e testes, entrega e lançamento, uma ronda de revisões e suporte por email. Orçamento à medida.
+- Parceria contínua: para quem quer crescer com uma equipa à mão, com novas funcionalidades, materiais novos e otimização contínua, mês após mês. Inclui tudo o que está no Projeto único, horas de design e desenvolvimento reservadas por mês, prioridade no calendário, otimização e manutenção contínuas, reuniões mensais de acompanhamento e suporte prioritário. Mensalidade sob consulta.
 Depois do lançamento: no Projeto único há suporte por email. Na Parceria contínua há horas de design e desenvolvimento todos os meses, com prioridade no calendário e reuniões mensais de acompanhamento.
 
 PERGUNTAS FREQUENTES
-- Que tipo de projetos fazem? Identidade e marca, websites e lojas online, plataformas e dashboards internos, e automação de processos. É frequente o mesmo cliente precisar de mais do que um, e tratam de todos em conjunto.
-- Quanto custa um projeto? Cada projeto é orçamentado à medida, depois de perceberem o que é preciso. Há dois modelos: Projeto único, para uma necessidade específica, e Parceria contínua, com mensalidade, para quem precisa de evolução constante.
-- Já temos marca e website. Podem melhorar o que existe? Sim. Trabalham tanto com quem está a lançar do zero como com empresas que querem modernizar a marca, o website ou os processos que já têm.
+- Que tipo de projetos fazem? Identidade e marca, websites e lojas online, plataformas e dashboards internos, e automação de processos. Muitas vezes o mesmo cliente precisa de mais do que um, e tratam de tudo em conjunto.
+- Quanto custa um projeto? Depende do que for preciso, por isso só falam de números depois de o perceber. Há dois modelos: Projeto único, para uma necessidade específica, e Parceria contínua, com mensalidade, para quem precisa de evolução constante.
+- Já temos marca e website. Podem melhorar o que existe? Sim. Trabalham tanto com quem está a lançar do zero como com empresas que querem renovar a marca, o website ou os processos que já têm.
+- O que acontece depois do lançamento? Não desaparecem. No Projeto único há suporte por email. Na Parceria contínua há horas de design e desenvolvimento reservadas todos os meses, com prioridade no calendário e reuniões mensais de acompanhamento.
 
 PORTEFÓLIO
 O site mostra quatro exemplos ilustrativos, que são exemplos por tipo de projeto e não trabalhos de clientes concretos: rebranding e sistema visual; plataforma de reservas online; painel de gestão interna; loja online B2B. O portefólio completo está disponível mediante pedido.

@@ -811,7 +811,7 @@
         }
         const data = await res.json().catch(() => ({}));
         if (!res.ok || data.ok !== true) throw new Error('send');
-        status.textContent = 'Mensagem enviada. Respondemos pessoalmente.';
+        status.textContent = 'Mensagem enviada. Obrigado por nos contar.';
         form.reset();
         fields.forEach(({ input, error }) => { input.removeAttribute('aria-invalid'); error.hidden = true; });
       } catch {
@@ -901,7 +901,7 @@
     const KEY = 'insightory-chat';
     const MAX_SENT = 10;
     const MAX_KEPT = 20;
-    const intro = 'Pergunte-me sobre os serviços, o processo de trabalho ou os modelos de colaboração da Insightory.Lab.';
+    const intro = 'Pergunte o que quiser sobre os serviços, a forma de trabalhar ou os modelos de colaboração.';
     const ideas = ['Que serviços oferecem?', 'Como funciona o processo?', 'Quero pedir um orçamento'];
 
     const make = (tag, cls, text) => {
